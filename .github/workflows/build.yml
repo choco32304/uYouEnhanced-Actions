@@ -14,7 +14,14 @@ jobs:
     - name: 🔧 必要なパッケージをインストール
       run: |
         sudo apt update
-        sudo apt install -y ldid dpkg unzip curl git
+        sudo apt install -y make clang libtapi-dev dpkg unzip curl git
+
+    - name: 🔨 ldid をビルドしてインストール
+      run: |
+        git clone https://github.com/ProcursusTeam/ldid.git
+        cd ldid
+        make
+        sudo cp ldid /usr/local/bin
 
     - name: 📦 uYouPlus をクローン＆ビルド
       run: |
