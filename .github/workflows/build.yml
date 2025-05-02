@@ -1,0 +1,30 @@
+name: Build uYouEnhanced
+
+on:
+  workflow_dispatch: # 手動トリガー
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 リポジトリをクローン
+      uses: actions/checkout@v3
+
+    - name: 🔧 必要なパッケージをインストール
+      run: |
+        sudo apt update
+        sudo apt install -y ldid dpkg unzip curl git
+
+    - name: 📦 uYouPlus をクローン＆ビルド
+      run: |
+        git clone https://github.com/qnblackcat/uYouPlus.git
+        cd uYouPlus
+        ./scripts/setup.sh
+        ./scripts/build.sh
+
+    - name: 📤 IPAを成果物としてアップロード
+      uses: actions/upload-artifact@v3
+      with:
+        name: uYouPlus.ipa
+        path: uYouPlus/output/uYouPlus.ipa
