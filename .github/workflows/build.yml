@@ -1,7 +1,7 @@
 name: Build uYouEnhanced
 
 on:
-  workflow_dispatch: # 手動トリガー
+  workflow_dispatch:
 
 jobs:
   build:
@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - name: 📥 リポジトリをクローン
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: 🔧 必要なパッケージをインストール
       run: |
@@ -24,7 +24,7 @@ jobs:
         ./scripts/build.sh
 
     - name: 📤 IPAを成果物としてアップロード
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: uYouPlus.ipa
         path: uYouPlus/output/uYouPlus.ipa
