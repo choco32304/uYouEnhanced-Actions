@@ -22,7 +22,8 @@ jobs:
         sudo apt install -y build-essential
         git clone https://github.com/apple/swift.git
         cd swift
-        ./utils/update_submodules.py --revision 0.49
+        # サブモジュールを初期化して更新
+        git submodule update --init --recursive
         mkdir build
         cd build
         cmake ..
@@ -34,4 +35,14 @@ jobs:
         git clone https://github.com/ProcursusTeam/ldid.git
         cd ldid
         make
-        sudo cp ldid
+        sudo cp ldid /usr/local/bin
+
+    - name: 📦 uYouPlus をクローン＆ビルド
+      run: |
+        git clone https://github.com/qnblackcat/uYouPlus.git
+        cd uYouPlus
+        ./scripts/setup.sh
+        ./scripts/build.sh
+
+    - name: 📤 IPAを成果物としてアップロード
+      uses: actions/upload
